@@ -5,6 +5,7 @@ TARGET = main
 
 SRC = src/main.c \
       lib/interface/interface.c \
+      lib/cpu/cpu.c \
       lib/fcfs/fcfs.c \
       lib/priority/priority.c \
       lib/rr/rr.c \
@@ -13,6 +14,7 @@ SRC = src/main.c \
 OBJ = $(SRC:%.c=obj/%.o)
 
 INCLUDES = -Ilib/interface/include \
+           -Ilib/cpu/include \
            -Ilib/fcfs/include \
            -Ilib/priority/include \
            -Ilib/rr/include \

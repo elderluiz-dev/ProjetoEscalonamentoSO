@@ -12,5 +12,3 @@ typedef struct queue
     n_queue *start;
     n_queue end;
 } queue;
-
-void add_queue_node();

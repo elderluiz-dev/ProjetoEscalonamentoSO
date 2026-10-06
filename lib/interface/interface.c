@@ -10,7 +10,8 @@ int menu()
     printf("2. Shortest Job First\n");
     printf("3. Round Robin\n");
     printf("4. Priority Scheduling\n");
-    printf("> \n");
+    printf("0. Sair\n");
+    printf("> ");
     
     scanf("%d", &opt);
     return opt;
@@ -28,13 +29,47 @@ void interface()
         int opt = menu();
         switch (opt)
         {
-        case 1:
-            printf("FCFS\n");
-            break;
-        
-        default:
-            printf("Opção inválida.\n");
-            break;
+            case 1:
+            {
+                clear_terminal();
+                printf("FCFS\n");
+                break;   
+            }
+
+            case 2:
+            {
+                clear_terminal();
+                printf("SJF\n");
+                break;
+            }
+            
+            case 3:
+            {
+                clear_terminal();
+                printf("RR\n");
+                break;
+            }
+
+            case 4:
+            {
+                clear_terminal();
+                printf("Priority\n");
+                break;
+            }
+
+            case 0:
+            {
+                clear_terminal();
+                printf("Programa encerrado pelo usuário.\n");
+                return;
+            }
+
+            default:
+            {
+                clear_terminal();
+                printf("Opção inválida.\n");
+                break;
+            }
         }        
     }
 
