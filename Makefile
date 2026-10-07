@@ -5,20 +5,19 @@ TARGET = main
 
 SRC = src/main.c \
       lib/interface/interface.c \
-      lib/cpu/cpu.c \
-      lib/fcfs/fcfs.c \
-      lib/priority/priority.c \
-      lib/rr/rr.c \
-      lib/sjf/sjf.c
+      lib/processes/processes.c \
+      lib/processor/cpu.c \
+      lib/scheduler/fcfs.c \
+      lib/scheduler/priority.c \
+      lib/scheduler/rr.c \
+      lib/scheduler/sjf.c
 
 OBJ = $(SRC:%.c=obj/%.o)
 
 INCLUDES = -Ilib/interface/include \
-           -Ilib/cpu/include \
-           -Ilib/fcfs/include \
-           -Ilib/priority/include \
-           -Ilib/rr/include \
-           -Ilib/sjf/include
+           -Ilib/processes/include \
+           -Ilib/processor/include \
+           -Ilib/scheduler/include
 
 all: $(TARGET)
 
