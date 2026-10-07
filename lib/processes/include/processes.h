@@ -3,9 +3,9 @@
 typedef struct process
 {
     int pid;
-    int arrival_time;
+    long long arrival_time;
     int burst_time;
-    int remaining_time;
+    long long remaining_time;
     int priority;
     struct process *prox;
 } process;
@@ -17,7 +17,7 @@ typedef struct process_queue
     process *end;
 } process_queue;
 
-long long clock();
+long long arrival_generator();
 void init_queue(process_queue **queue);
 void add_process(process_queue **queue, process **proc);
 void show_items(process_queue *queue);
