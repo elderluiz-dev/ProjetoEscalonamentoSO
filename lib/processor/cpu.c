@@ -18,20 +18,8 @@ long long clock()
     return moment;
 }
 
-void cpu(process_queue **queue)
+void cpu(process *p)
 {
-    process *atual = (*queue)->start;
-    while((*atual).remaining_time > 0)
-    {
-        clock();
-        (*atual).remaining_time--;
-    }
-
-    (*queue)->start = atual->prox;
-    (*queue)->p_count--;
-
-    if ((*queue)->p_count == 0)
-        (*queue)->end = NULL;
-
-    free(atual);
+    clock();
+    p->remaining_time--;
 }
