@@ -19,5 +19,5 @@ typedef struct process_queue
 
 long long arrival_generator();
 void init_queue(process_queue **queue);
-void add_process(process_queue **queue, process **proc);
-void show_items(process_queue *queue);
+void add_process(process_queue **queue);
+void remove_process(process_queue **queue, process **proc);
