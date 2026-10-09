@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "processes.h"
+#include "cpu.h"
+#include "fcfs.h"
+
 int menu()
 {
     int opt;
@@ -23,16 +27,19 @@ void clear_terminal(){
 
 void interface()
 {
+    process_queue *queue = NULL;
+
     clear_terminal();
     while(1)
     {
+        init_queue(&queue);
         int opt = menu();
         switch (opt)
         {
             case 1:
             {
                 clear_terminal();
-                printf("FCFS\n");
+                fcfs(&queue);
                 break;   
             }
 

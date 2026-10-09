@@ -24,95 +24,80 @@ void init_queue(process_queue **queue)
     (*queue)->end = NULL;
 }
 
-void add_process(process_queue **queue, process **proc)
+void add_process(process_queue **queue)
 {
-    *proc = malloc(sizeof(**proc));
-    if(*proc == NULL){
+
+    if (queue == NULL || *queue == NULL)
+    {
+        printf("Falha aqui!\n");
+        return;
+    }
+
+    process *proc = malloc(sizeof(*proc));
+    if(proc == NULL){
         printf("Erro de alocação de memória em: add_process\n");
         return;
     }
     
-    (*proc)->pid = pid_count;
-    (*proc)->arrival_time = arrival_generator();
-    (*proc)->burst_time = rand() % 8 + 1;
-    (*proc)->remaining_time = (*proc)->burst_time;
-    (*proc)->priority = rand() % 4;
+    proc->pid = pid_count;
+    proc->arrival_time = arrival_generator();
+    proc->burst_time = rand() % 8 + 1;
+    proc->remaining_time = proc->burst_time;
+    proc->priority = rand() % 4;
+    proc->prox = NULL;
 
     if((*queue)->start == NULL)
     {
-        (*queue)->start = *proc;
-        (*queue)->end = *proc;
-        (*queue)->p_count++;
-        (*proc)->prox = NULL;
+        (*queue)->start = proc;
+        (*queue)->end = proc;
     }else
     {
-        (*proc)->prox = (*queue)->end;
-        (*queue)->end = *proc;
-        (*queue)->p_count++;
+        (*queue)->end->prox = proc;
+        (*queue)->end = proc;
     }
+
+    (*queue)->p_count++;
+    pid_count++;
 }
 
-void show_items(process_queue *queue)
+void remove_process(process_queue **queue, process **proc)
 {
-    if(queue == NULL)
+    if (*queue == NULL || *proc == NULL)
     {
-        printf("Vazio.\n");
         return;
     }
 
-    printf("PID: %d\n", queue->end->pid);
-    printf("Arrival time: %d\n", queue->end->arrival_time);
-    printf("Burst time: %d\n", queue->end->burst_time);
-    printf("Remaining time: %d\n", queue->end->remaining_time);
-    printf("Priority: %d\n", queue->end->priority);
+    process *actual = (*queue)->start;
+    process *prev = NULL;
+
+    while (actual != NULL && actual != *proc)
+    {
+        prev = actual;
+        actual = actual->prox;
+    }
+
+    if (actual == NULL)
+    {
+        return;
+    }
+
+    if (prev == NULL)
+    {
+        (*queue)->start = actual->prox;
+    }else
+    {
+        prev->prox = actual->prox;
+    }
+
+    if((*queue)->end == actual)
+    {
+        (*queue)->end = prev;
+    }
+
+    free(actual);
+    (*queue)->p_count--;
+
+    *proc = NULL;
 
     return;
 }
-
-/*
-int main()
-{
-    process_queue *queue;
-
-    clear_terminal();
-    while(1)
-    {
-        init_queue(&queue);
-        int opt = menu();
-        switch (opt)
-        {
-            case 1:
-            {
-                clear_terminal();
-                process *proc;
-                add_process(&queue, &proc);
-                printf("Adicionado com sucesso.\n");
-                break;   
-            }
-
-            case 2:
-            {
-                clear_terminal();
-                show_items(queue);
-                break;
-            }
-
-            case 0:
-            {
-                clear_terminal();
-                printf("Programa encerrado pelo usuário.\n");
-                return 0;
-            }
-
-            default:
-            {
-                clear_terminal();
-                printf("Opção inválida.\n");
-                break;
-            }
-        }        
-    }
-
-    return 0;
-}
-*/

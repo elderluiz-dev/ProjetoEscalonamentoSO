@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
+#include <unistd.h>
+
 #include "processes.h"
 
 long long moment = 0;
@@ -11,15 +12,23 @@ long long arrival_generator()
     return arriv_moment;
 }
 
-long long clock()
+void tick()
 {
     moment++;
-    sleep(1);
-    return moment;
+    // usleep(500000);
+    return;
 }
 
 void cpu(process *p)
 {
-    clock();
-    p->remaining_time--;
+    if(p == NULL)
+    {
+        return;
+    }
+
+    if(p->remaining_time > 0)
+    {
+        p->remaining_time--;
+    }
+
 }
