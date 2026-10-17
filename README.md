@@ -6,3 +6,4 @@ O grupo é composto por:
 
 *Elder Luiz* </br>
 *Leonardo Santos* </br>
+*Hélida Miláida* </br>
