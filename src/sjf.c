@@ -64,14 +64,16 @@ int less_arrival(const p_node *a, const p_node *b)
 {
     if (a->arrival_time != b->arrival_time)
         return a->arrival_time < b->arrival_time;
-    return 0;
+    return a->pid < b->pid;
 }
 
 int less_burst(const p_node *a, const p_node *b)
 {
     if (a->burst_time != b->burst_time)
         return a->burst_time < b->burst_time;
-    return 0;
+    if (a->arrival_time != b->arrival_time)
+        return a->arrival_time < b->arrival_time;
+    return a->pid < b->pid;
 }
 
 void insert_sorted(p_queue *q, p_node *node,
