@@ -70,10 +70,10 @@ int less_arrival(const p_node *a, const p_node *b)
     return a->arrival_time < b->arrival_time;
 }
 
-int less_priority(const p_node *a, const p_node *b)
+int more_priority(const p_node *a, const p_node *b)
 {
     if (a->priority != b->priority)
-        return a->priority < b->priority;
+        return a->priority > b->priority;
     if (a->arrival_time != b->arrival_time)
         return a->arrival_time < b->arrival_time;
     return a->pid < b->pid;
@@ -286,7 +286,7 @@ void simulate(p_queue *pending, int total, p_result results[])
     while (finished < total)
     {
         while (pending->start != NULL && pending->start->arrival_time <= time)
-            insert_sorted(&ready, dequeue(pending), less_priority);
+            insert_sorted(&ready, dequeue(pending), more_priority);
 
         if (running == NULL && ready.p_count > 0)
             running = dequeue(&ready);
@@ -301,6 +301,7 @@ void simulate(p_queue *pending, int total, p_result results[])
             if (running->remaining_time == 0)
             {
                 p_result *r = &results[finished++];
+                r->priority = running->priority;
                 r->pid = running->pid;
                 r->arrival = running->arrival_time;
                 r->burst = running->burst_time;
