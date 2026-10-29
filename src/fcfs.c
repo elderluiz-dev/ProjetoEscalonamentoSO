@@ -298,6 +298,7 @@ ERROR_TYPE processor(p_queue **queue)
                 busy--;
             }
         }
+        
         clock++;
         sleep(1);
     }
@@ -313,7 +314,7 @@ ERROR_TYPE processor(p_queue **queue)
 //main
 int main()
 {
-    int pid_count = 0;
+    int pid_count = 1;
 
     p_queue *queue = NULL;
     if(init_queue(&queue) != 0)
